@@ -118,7 +118,6 @@ WHERE email = 'user@example.com';
 4. Start server with `go run main.go`
 5. Navigate to http://localhost:8080
 
-
 ## Course Resources
 
 The resources and code snippets below are reference throughout the [Fullstack Deployment: From Containers to Production AWS]() course.
@@ -128,23 +127,22 @@ The resources and code snippets below are reference throughout the [Fullstack De
 To follow along with the course, you will need:
 
 1. Go version 1.24.2 or later
-    - [Download and install Go](https://go.dev/doc/install)
+   - [Download and install Go](https://go.dev/doc/install)
 1. Docker Desktop
-    - [Download and install Docker Desktop](https://www.docker.com/products/docker-desktop/)
-    - **Important:** Check "Enable host networking" under `Settings > Resources > Network`
+   - [Download and install Docker Desktop](https://www.docker.com/products/docker-desktop/)
+   - **Important:** Check "Enable host networking" under `Settings > Resources > Network`
 1. Google Cloud Console
-    - Log into the [Google Cloud Console](https://console.cloud.google.com/auth/clients)
-    - You'll create an OAuth Client during the course
+   - Log into the [Google Cloud Console](https://console.cloud.google.com/auth/clients)
+   - You'll create an OAuth Client during the course
 1. AWS
-    - Create an AWS Root User account and log into the [AWS Console](https://us-east-1.console.aws.amazon.com/console/home)
-    - Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
-    - In the course, you'll create an Administrator User in IAM for the CLI and [set environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) in your console to authenticate the CLI
+   - Create an AWS Root User account and log into the [AWS Console](https://us-east-1.console.aws.amazon.com/console/home)
+   - Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+   - In the course, you'll create an Administrator User in IAM for the CLI and [set environment variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) in your console to authenticate the CLI
 1. Terraform
-    - Install the [Terraform CLI](https://developer.hashicorp.com/terraform/install)
+   - Install the [Terraform CLI](https://developer.hashicorp.com/terraform/install)
 1. Supabase
-    - Create a [Supabase account]()
+   - Create a [Supabase account]()
 1.
-
 
 ### App Runner IAM Policy
 
@@ -152,14 +150,16 @@ In the **AWS Parameter Store** lesson, copy and paste this JSON code when you ar
 
 ```json
 {
-	"Statement": [
-		{
-			"Action": ["ssm:GetParameters"],
-			"Effect": "Allow",
-			"Resource": ["arn:aws:ssm:us-west-2:<ACCOUNT_ID>:parameter/fem-fd-service/*"]
-		}
-	],
-    "Version": "2012-10-17"
+  "Statement": [
+    {
+      "Action": ["ssm:GetParameters"],
+      "Effect": "Allow",
+      "Resource": [
+        "arn:aws:ssm:us-west-2:<ACCOUNT_ID>:parameter/fem-fd-service/*"
+      ]
+    }
+  ],
+  "Version": "2012-10-17"
 }
 ```
 
@@ -169,16 +169,16 @@ In the **App Runner IAM Role** lesson, copy and paste this JSON code when you ar
 
 ```json
 {
-    "Version": "2012-10-17",
-	"Statement": [
-		{
-			"Effect": "Allow",
-            "Principal": {
-                "Service": ["tasks.apprunner.amazonaws.com"]
-            },
-			"Action": ["sts:AssumeRole"],
-		}
-	],
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": ["tasks.apprunner.amazonaws.com"]
+      },
+      "Action": ["sts:AssumeRole"]
+    }
+  ]
 }
 ```
 
@@ -194,12 +194,12 @@ Then verify the installation by running `goose -version`
 
 **Note:** If you see a `command not found: goose` error when trying to run goose, it's because the `$HOME/go/bin` directory is not added to your PATH. You can fix this temporarily by running export `PATH=$HOME/go/bin:$PATH`, but this will not persist if you close your terminal. A permanent fix would require adding export `PATH=$HOME/go/bin:$PATH` to your .zshrc or .bashrc.
 
-
 ### Deploying the Service
 
 When you are deploying the fm-fd-service with Terraform, Erik covers some troubleshooting tips throughout the lesson. Here are some additional troubleshooting tips:
 
 **Clean up your local docker images and push up a fresh image to ECR**
+
 ```bash
 # You first may need to log (Go to ECR > Click on your image > View Push Command)
 # aws ecr get-login-password......
@@ -223,8 +223,8 @@ Confirm your terraform configuration matches [this commit on Erik's workshop bra
 
 ```bash
 terraform init
-terraform plan -out "terraform.tfplan"   
-terraform apply "terraform.tfplan"   
+terraform plan -out "terraform.tfplan"
+terraform apply "terraform.tfplan"
 ```
 
 ## Deleting AWS Resources
